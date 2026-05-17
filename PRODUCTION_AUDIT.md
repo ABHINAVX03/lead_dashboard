@@ -30,6 +30,7 @@ The application now builds successfully for both client and server and has Docke
 - Configured frontend Docker builds to avoid baking local `.env` values into production
 - Added CORS configuration through `CLIENT_ORIGIN`
 - Added safe server handling for missing `MONGODB_URI`
+- Added `server/nixpacks.toml` so Railway builds TypeScript before running `npm start`
 
 ## Known Risk Items
 
@@ -88,6 +89,18 @@ Docker:
 - App: `http://localhost`
 - API through Nginx: `http://localhost/api`
 - API health direct to server: `http://localhost:5000/health`
+
+Railway backend:
+
+- Root directory: `server`
+- Build config: `server/nixpacks.toml`
+- Health check: `https://your-railway-backend-url/health`
+
+Vercel client:
+
+- Root directory: `client`
+- Build command: `npm run build`
+- Output directory: `dist`
 
 ## User Roles
 

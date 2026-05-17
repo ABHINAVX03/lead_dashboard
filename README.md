@@ -182,6 +182,52 @@ http://localhost
 
 The Nginx client container proxies API requests from `/api` to the server container.
 
+## Railway Backend Deployment
+
+When creating the Railway service, select the `server` folder as the root directory.
+
+The `server/nixpacks.toml` file tells Railway to:
+
+1. Install dependencies with `npm ci`
+2. Build TypeScript with `npm run build`
+3. Start the compiled backend with `npm start`
+
+Set these Railway environment variables:
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_long_random_secret
+JWT_EXPIRE=7d
+BCRYPT_ROUNDS=10
+ADMIN_SECRET_KEY=your_private_admin_signup_secret
+CLIENT_ORIGIN=https://your-vercel-app-url
+```
+
+Do not set `PORT` manually on Railway unless required. Railway provides the runtime port automatically.
+
+Health check URL:
+
+```text
+https://your-railway-backend-url/health
+```
+
+## Vercel Client Deployment
+
+When creating the Vercel project, select the `client` folder as the root directory.
+
+Use:
+
+```text
+Build command: npm run build
+Output directory: dist
+```
+
+Set this Vercel environment variable:
+
+```env
+VITE_API_URL=https://your-railway-backend-url/api
+```
+
 ## Production Notes
 
 - Do not commit real `.env` files.
