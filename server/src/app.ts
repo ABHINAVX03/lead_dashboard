@@ -14,8 +14,23 @@ const allowedOrigins = process.env.CLIENT_ORIGIN
 app.use(cors({ origin: allowedOrigins?.length ? allowedOrigins : true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+const healthCheck = (req: express.Request, res: express.Response) => {
+  res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+};
+
+app.get('/', (req, res) => {
+  res.status(200).json({
+    name: 'Lead Dashboard API',
+    status: 'ok',
+    health: '/health',
+  });
+});
+
+app.get('/health', healthCheck);
+app.get('/api/health', healthCheck);
+
 app.use('/api/auth', authRoutes);
 app.use('/api/leads', leadRoutes);
-app.get('/health', (req, res) => res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() }));
 app.use(errorHandler);
 export default app;
