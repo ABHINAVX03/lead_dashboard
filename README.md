@@ -111,6 +111,20 @@ To seed leads for a different user email:
 npm run seed -- --email=your-user@example.com
 ```
 
+## Testing Accounts
+
+After running `cd server && npm run seed`, use this demo admin account for testing:
+
+```text
+Email: admin@example.com
+Password: Admin123
+Role: admin
+```
+
+The seeded admin can view and manage all sample leads.
+
+For testing a sales user, register a new account from the app without selecting "Register as Admin". Sales users can only see leads they create themselves.
+
 ## Application Manual
 
 ### Sign In
